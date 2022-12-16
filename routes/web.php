@@ -16,10 +16,10 @@ use App\Http\Controllers\RecordController;
 
 
 Route::get('/', [RecordController::class, 'index']);
+Route::get('showrecord', [RecordController::class, 'records']);
 Route::get('addrecord', [RecordController::class, 'create']);
 Route::post('addrecord', [RecordController::class, 'store']);
 Route::get('edit/{id}', [RecordController::class, 'edit']);
 Route::put('update/{id}', [RecordController::class, 'update']);
-Route::get('show/{id}', [RecordController::class, 'show']);
 Route::get('delete/{id}', [RecordController::class, 'destroy']);
 

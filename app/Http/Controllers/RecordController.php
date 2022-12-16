@@ -10,13 +10,22 @@ class RecordController extends Controller
     //
     public function index()
     {
-        $records = Record::all();
+        //count for civil status
+        $married = Record::where('civilstatus', 'Married')->count();
+        $single = Record::where('civilstatus', 'Single')->count();
+        $widowed = Record::where('civilstatus', 'widowed')->count();
+        $seperated = Record::where('civilstatus', 'seperated')->count();
 
-        $data = [
-            'records' => $records
-        ];
+        //count for sitio
+        $ilaya = Record::where('sitio', 'Ilaya')->count();
+        $centro = Record::where('sitio', 'Centro')->count();
+        $pinagpala = Record::where('sitio', 'Pinagpala')->count();
+        $sambat = Record::where('sitio', 'Sambat')->count();
+        $donelpidio = Record::where('sitio', 'Don Elpidio')->count();
+        $whitehouse = Record::where('sitio', 'White House')->count();
+        $greenheights = Record::where('sitio', 'Green Heights')->count();
 
-        return view('bins.home', $data);
+        return view('bins.home', compact('married', 'single', 'widowed', 'seperated', 'ilaya', 'centro', 'pinagpala', 'sambat', 'donelpidio', 'whitehouse', 'greenheights'));
     }
 
     public function create()
@@ -31,20 +40,23 @@ class RecordController extends Controller
         $record->firstname = $request->firstname;
         $record->middlename = $request->middlename;
         $record->lastname = $request->lastname;
-        $record->position = $request->position;
         $record->birthdate = $request->birthdate;
         $record->civilstatus = $request->civilstatus;
         $record->occupation = $request->occupation;
         $record->sitio = $request->sitio;
 
         $record->save();
-        return redirect("/");
+        return redirect("showrecord");
     }
 
-    public function show($id)
+    public function records()
     {
-        $record = Record::find($id);
-        return view("bins.viewrecord", compact('record'));
+        $record = Record::all();
+
+        $data = [
+            'record' => $record
+        ];
+        return view("bins.records", $data);
     }
 
     public function edit($id)
@@ -61,15 +73,13 @@ class RecordController extends Controller
         $record->firstname = $request->firstname;
         $record->middlename = $request->middlename;
         $record->lastname = $request->lastname;
-        $record->position = $request->position;
         $record->birthdate = $request->birthdate;
         $record->civilstatus = $request->civilstatus;
         $record->occupation = $request->occupation;
         $record->sitio = $request->sitio;
 
         $record->update();
-
-        return redirect("/");
+        return redirect("showrecord");
     }
 
     public function destroy($id)
@@ -77,6 +87,6 @@ class RecordController extends Controller
         $record = Record::find($id);
         $record->delete();
 
-        return redirect("/");
+        return redirect("showrecord");
     }
 }

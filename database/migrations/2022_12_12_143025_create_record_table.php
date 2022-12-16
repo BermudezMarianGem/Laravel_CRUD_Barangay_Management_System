@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('lastname');
             $table->string('firstname');
             $table->string('middlename');
-            $table->string('position');
             $table->string('birthdate');
             $table->string('civilstatus');
             $table->string('occupation');
